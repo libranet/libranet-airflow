@@ -1,0 +1,79 @@
+name: Linting
+
+env:
+    POETRY_VERSION: "1.4.0"
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+
+jobs:
+    run-tests:
+        name: Python linters
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
+                  fetch-depth: 0
+
+            - name: Set up Python 3.11
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Set up Poetry
+              run: |
+                  pip install poetry==${{ env.POETRY_VERSION }}
+
+            - name: Install
+              run: |
+                  make install
+
+            - name: Flake8
+              run: |
+                  make flake8
+
+            - name: Ruff
+              run: |
+                  make ruff-check
+
+            - name: Pylint
+              run: |
+                  make pylint
+
+            - name: Mypy
+              run: |
+                  make mypy
+
+            - name: Pyroma
+              run: |
+                  make pyroma
+
+            - name: Check poetry
+              run: |
+                  make poetry-check
+
+            - name: Check poetry lock
+              run: |
+                  make poetry-lock-check
+
+            - name: Bandit
+              run: |
+                  make bandit-html
+
+            # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+            - name: Upload Bandit Report
+              uses: actions/upload-artifact@v3
+              with:
+                  name: Bandit Report
+                  path: var/html-bandit/index.html
+                  retention-days: 10
