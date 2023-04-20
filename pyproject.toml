@@ -130,13 +130,70 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4.0"
-apache-airflow = { extras = ["celery", "ssh"], version = ">=2.5" }
+# python = ">=3.10,<4.0"
+python = ">=3.10,<3.12"    # sqlalchemy-bigquery requires Python >=3.7, <3.12
 autoadd-bindir = ">=1.0"
-autoread_dotenv = ">=0.0"
+autoread-dotenv = ">=0.0"
 libranet-logging = ">=1.2"
-kubernetes = ">=26.1"
-pandas = ">=2.0"
+sqlalchemy = "<2.0"        # avoid deprecation-warnings
+
+# kubernetes = ">=26.1"
+# pandas = ">=2.0"
+
+apache-airflow-client = ">=2.5"
+
+apache-airflow = { extras = [
+    # https://airflow.apache.org/docs/apache-airflow/stable/extra-packages-ref.html
+
+    # Bundle extras:
+    # "all", # all Airflow user facing features (no devel and doc requirements)
+    # "all_dbs",      # all database integrations
+    "devel", # minimum development dependencies (without Hadoop, Kerberos, providers)
+    # "devel_all", # everything needed for development including Hadoop and providers
+    # "devel_ci",     # all dependencies required for CI tests (same as devel_all)
+    # "devel_hadoop", # adds Hadoop stack libraries to devel dependencies
+    # "doc",          # packages needed to build docs (included in devel)
+    # "doc_gen",      # packages needed to generate er diagrams (included in devel_all)
+
+    # Core Airflow extras:
+    "asnc",     # async worker classes for Gunicorn
+    "celery",   # CeleryExecutor (also installs the celery provider package!)
+    "pandas",   # install Pandas library compatible with Airflow
+    "password", # password authentication for users
+    # "rabbitmq",     # RabbitMQ support as a Celery backend
+    "virtualenv", # Running python tasks in local virtualenv
+
+    # Apache Software extras:
+    # "apache.hdfs",
+    # "apache.spark",
+
+    # External Services extras:
+    # "slack"
+
+    # Locally installed software extras:
+    # "arangodb",
+    "docker",
+    # "elasticsearch",
+    # "github",
+    # "influxdb",
+    # "microsoft.azure",
+    # "mongodb",
+    # "mysql",
+    # "neo4j",
+    # "odbc",
+    # "oracle",
+    # "postgres",
+    "redis",
+
+    # Other extras:
+    # "common.sql",
+    # "ftp",
+    # "http",
+    # "sftp",
+    # "sqlite",
+    "ssh",
+], version = ">=2.5" }
+
 
 [tool.poetry.group.dev.dependencies]
 black = { version = ">=22.1", allow-prereleases = true }
@@ -190,7 +247,7 @@ pytest-cov = ">=3.0"
 tox = ">=4.4"
 
 [tool.poetry.group.typing.dependencies]
-lxml = { version = ">=4.9", optional = true, allow-prereleases = false } # mypy coverage-report
+lxml = { version = ">=4.9", optional = false, allow-prereleases = false } # mypy coverage-report
 mypy = ">=0.9"
 
 [tool.poetry.urls]
