@@ -40,3 +40,10 @@ airflow-db-upgrade:
 airflow-standalone:
 	# this generates a password in the log-ouput
 	airflow standalone
+
+
+FERNET_KEY := $(shell bin/python -c "from libranet_airflow.fernet import generate_key; generate_key()")
+.PHONY: airflow-set-fernetkey ## replace placeholder __FERNET_KEY__
+airflow-set-fernetkey:
+	@ echo -e "Replacing string __FERNET_KEY__ -> ${FERNET_KEY}"
+	$(SED) -i 's@__FERNET_KEY__@'"${FERNET_KEY}"'@'  .env
