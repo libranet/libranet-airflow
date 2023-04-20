@@ -29,7 +29,8 @@ install: create-dirs create-dirs-extra  dotenv-install pip-upgrade poetry-instal
 .PHONY: create-dirs-extra ## initialize dir-structure, create dirs & symlinks
 create-dirs-extra:
 	mkdir -p var/airflow
-	mkdir -p var/data
+	mkdir -p var/airflow/dags
+	mkdir -p var/airflow/plugins
 
 
 .PHONY: symlinks-extra ## extra usability symlinks
