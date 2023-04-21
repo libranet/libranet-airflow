@@ -199,8 +199,6 @@ loggers:
 root:
     # You can get the root-logger via logging.getLogger(),
     # Normally you don't need to use the root-logger directly, since all other loggers descend from it.
-
-    # The console-handler is automatically removed if not-interactive.
     # The dedicated "<loglevel>_file"-handlers are automatically removed if the root-loglevel is set higher.
 
     level: !env LOGLEVEL_ROOT, NOTSET
