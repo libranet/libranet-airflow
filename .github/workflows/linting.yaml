@@ -1,79 +1,83 @@
 name: Linting
 
 env:
-    POETRY_VERSION: "1.4.0"
+  POETRY_VERSION: "1.4.0"
 
 on:
-    pull_request:
-        types: [opened, reopened, synchronize]
-    push:
-        branches:
-            - main
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - main
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    run-tests:
-        name: Python linters
-        runs-on: ubuntu-latest
-        timeout-minutes: 5
+  run-tests:
+    name: Python linters
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
 
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  persist-credentials: false
-                  fetch-depth: 0
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
-            - name: Set up Python 3.11
-              uses: actions/setup-python@v4
-              with:
-                  python-version: "3.11"
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-            - name: Set up Poetry
-              run: |
-                  pip install poetry==${{ env.POETRY_VERSION }}
+      - name: Set up Poetry
+        run: |
+          pip install poetry==${{ env.POETRY_VERSION }}
 
-            - name: Install
-              run: |
-                  make install
+      - name: Install required system-packages
+        run: |
+          sudo apt-get update && cat etc/requirements/required-debian.txt | xargs sudo apt-get install -y
 
-            - name: Flake8
-              run: |
-                  make flake8
+      - name: Install
+        run: |
+          make install
 
-            - name: Ruff
-              run: |
-                  make ruff-check
+      - name: Flake8
+        run: |
+          make flake8
 
-            - name: Pylint
-              run: |
-                  make pylint
+      - name: Ruff
+        run: |
+          make ruff-check
 
-            - name: Mypy
-              run: |
-                  make mypy
+      - name: Pylint
+        run: |
+          make pylint
 
-            - name: Pyroma
-              run: |
-                  make pyroma
+      - name: Mypy
+        run: |
+          make mypy
 
-            - name: Check poetry
-              run: |
-                  make poetry-check
+      - name: Pyroma
+        run: |
+          make pyroma
 
-            - name: Check poetry lock
-              run: |
-                  make poetry-lock-check
+      - name: Check poetry
+        run: |
+          make poetry-check
 
-            - name: Bandit
-              run: |
-                  make bandit-html
+      - name: Check poetry lock
+        run: |
+          make poetry-lock-check
 
-            # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
-            - name: Upload Bandit Report
-              uses: actions/upload-artifact@v3
-              with:
-                  name: Bandit Report
-                  path: var/html-bandit/index.html
-                  retention-days: 10
+      - name: Bandit
+        run: |
+          make bandit-html
+
+      # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+      - name: Upload Bandit Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Bandit Report
+          path: var/html-bandit/index.html
+          retention-days: 10
