@@ -65,6 +65,11 @@ jobs:
                   # TODO: This appears to require poetry to be installed before usage
                   # cache: "poetry"
 
+            - name: Install required system-packages
+              run: |
+                  sudo apt-get update
+                  cat etc/requirements/required-debian.txt | grep -vE "^\s*(#|$)" | xargs sudo apt-get install -y
+
             - name: Set up Poetry
               run: |
                   pip install poetry==${{ env.POETRY_VERSION }}
