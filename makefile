@@ -23,7 +23,7 @@ PROJECT_NAME='libranet-airflow'
 
 
 .PHONY: install  ## full initial installation
-install: create-dirs create-dirs-extra  dotenv-install pip-upgrade poetry-install symlink-venv-dirs symlinks-extra
+install: create-dirs create-dirs-extra dotenv-install poetry-install pip-upgrade symlink-venv-dirs symlinks-extra
 
 
 .PHONY: create-dirs-extra ## initialize dir-structure, create dirs & symlinks
