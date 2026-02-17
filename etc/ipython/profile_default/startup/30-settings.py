@@ -17,18 +17,6 @@ return-statements are not allowed.
 
 print(f"Importing {__file__}")
 
-# already import highly used modules
-import logging
+from libranet_airflow import cfg
 
-import libranet_logging
-
-# setup the logging according to etc/logging.yml
-libranet_logging.initialize()
-
-log = logging.getLogger("ipython-startup")
-
-log.debug("debug-message")
-log.info("info-message")
-log.warning("warning-message")
-log.error("error-message")
-log.critical("critical-message")
+settings = cfg.get_settings()
