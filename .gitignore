@@ -16,11 +16,19 @@
 #
 #   - If there is a / at the end of the pattern then the pattern will only match directories,
 #     otherwise the pattern can match both files and directories.
-
+#
 #   - Symlinks are always files, even if they point to a dir. So never put a / at the end.
 
-# archived files
-/_archive/
+
+# airflow
+.credentials.json
+
+# claude code
+/AGENTS.md
+/.claude
+
+# copier
+/.copier-answers.yml
 
 # dev-symlinks to .venv to make bin/python work
 /bin
@@ -28,20 +36,22 @@
 /lib64
 /pyvenv.cfg
 
-# exclude actual virtual-environment
-/.venv/
+# exclude virtual-environment and variations
+/.venv*
 
 # distribution / packaging
 /dist/
 
-# .env can contain secrets
-/.env
+# exclude .env-files can contain secrets
+/.env*
+# but include the template (ordering matters here)
+!/.env.template*
 
-# generated symlink
-etc/airflow.cfg
+# exclude generated python-cache-files
+__pycache__/
+
+# readthedocs
+/.readthedocs.yaml
 
 # exclude toplevel var-dir
-/var/
-
-# excluded generated python-files
-__pycache__/
+/var
