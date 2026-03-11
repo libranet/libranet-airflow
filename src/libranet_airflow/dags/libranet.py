@@ -15,9 +15,7 @@ import typing as tp
 from airflow.providers.standard.operators.python import PythonOperator
 from airflow.sdk import DAG
 
-from libranet_airflow.plugins import LibranetOperator
-from libranet_airflow.plugins import libranet_format_date
-from libranet_airflow.plugins import libranet_greeting
+from libranet_airflow.plugins import LibranetOperator, libranet_format_date, libranet_greeting
 
 logger = logging.getLogger(__name__)
 

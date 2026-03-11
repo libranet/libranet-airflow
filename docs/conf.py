@@ -36,7 +36,7 @@ def read_version(pyproject_path: str | pl.Path = "pyproject.toml") -> str:
 
 
 autoclass_content = "both"
-current_year = dt.datetime.now(tz=dt.timezone.utc).year
+current_year = dt.datetime.now(tz=dt.UTC).year
 owner = "Libranet"
 module_name = "libranet_airflow"
 package_name = module_name.replace("_", "-")

@@ -1,4 +1,3 @@
-
 """Python startup file.
 
 Taken from https://gist.github.com/viliampucik/8713b09ff7e4d984b29bfcd7804dc1f4

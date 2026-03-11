@@ -25,11 +25,8 @@ import typing as tp
 from airflow.models.taskinstance import TaskInstance
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.empty import EmptyOperator
-from airflow.providers.standard.operators.python import BranchPythonOperator
-from airflow.providers.standard.operators.python import PythonOperator
-from airflow.sdk import DAG
-from airflow.sdk import task
-from airflow.sdk import task_group
+from airflow.providers.standard.operators.python import BranchPythonOperator, PythonOperator
+from airflow.sdk import DAG, task, task_group
 
 # =============================================================================
 # DAG Default Arguments
@@ -167,9 +164,7 @@ with DAG(
         transformed = {
             "user_stats": [
                 {"name": user, "count": count, "score": count * 10}
-                for user, count in zip(
-                    raw_data["users"], raw_data["counts"], strict=True
-                )
+                for user, count in zip(raw_data["users"], raw_data["counts"], strict=True)
             ],
             "total": sum(raw_data["counts"]),
             "source": raw_data["source"],

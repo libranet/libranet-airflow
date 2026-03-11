@@ -163,7 +163,7 @@ handlers:
         formatter: "generic"
         level: "DEBUG"
 
-    
+
 
     # uvicorn_default:
     #     formatter: "uvicorn_default"
@@ -196,7 +196,7 @@ loggers:
         handlers:
             - libranet_airflow_file
 
-    
+
 
     dotenv:
         level: !env LOGLEVEL_DOTENV, NOTSET

@@ -5,5 +5,3 @@ https://airflow.apache.org/docs/apache-airflow/stable/howto/set-config.html#set-
 
 print("airflow_local_settings is being imported")
 # from airflow.config_templates.airflow_local_settings import DEFAULT_LOGGING_CONFIG
-
-

@@ -1,4 +1,5 @@
 """libranet_airflow.fernet."""
+
 import cryptography.fernet
 
 
