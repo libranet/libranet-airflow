@@ -172,11 +172,11 @@ repos:
         language: system
         types: [python]
 
-      - id: fix-encoding-pragma
-        name: fix encoding pragma
-        entry: uv run fix-encoding-pragma --remove
-        language: system
-        types: [python]
+    #   - id: fix-encoding-pragma
+    #     name: fix encoding pragma
+    #     entry: uv run fix-encoding-pragma --remove
+    #     language: system
+    #     types: [python]
 
       - id: mdformat
         name: mdformat

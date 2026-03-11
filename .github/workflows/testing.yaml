@@ -118,12 +118,6 @@ jobs:
               just uv-set-python-version ${{ matrix.python-version }}
               just install
 
-        # - name: Install the project
-        #   run: uv sync --all-groups
-
-        #- name: Run tests
-        #  run: uv run pytest tests --color=yes --cov=src --cov-fail-under=50 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing -v
-
         - name: Run pytest with coverage
           run: |
               just pytest-cov

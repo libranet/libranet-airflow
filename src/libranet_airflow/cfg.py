@@ -15,7 +15,7 @@ class Settings(pdt_settings.BaseSettings):
 
     model_config = pdt_settings.SettingsConfigDict(populate_by_name=True)
 
-    app_secret_key: str = pdt.Field(validation_alias="APP_SECRET_KEY")
+    # app_secret_key: str = pdt.Field(validation_alias="APP_SECRET_KEY")
 
     base_dir: pl.Path = pdt.Field(validation_alias="BASE_DIR")
 
