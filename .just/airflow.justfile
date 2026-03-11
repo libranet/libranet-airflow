@@ -1,8 +1,8 @@
 # airflow - Apache Airflow task runner commands
 
-# =============================================================================
+# ======
 # GENERAL
-# =============================================================================
+# ======
 
 # show version of airflow
 [group: 'airflow']
@@ -29,9 +29,9 @@ airflow-config:
 airflow-config-get section key:
     uv run airflow config get-value {{section}} {{key}}
 
-# =============================================================================
+# ======
 # STANDALONE / STARTUP
-# =============================================================================
+# ======
 
 # start airflow standalone server (webserver + scheduler + db)
 [group: 'airflow']
@@ -55,19 +55,24 @@ airflow-scheduler *args:
 airflow-triggerer *args:
     uv run airflow triggerer {{args}}
 
-# =============================================================================
+# ======
 # DATABASE
-# =============================================================================
+# ======
 
-# initialize airflow database
+# migrate airflow database to latest schema (Airflow 3.x)
 [group: 'airflow']
-airflow-db-init *args:
-    uv run airflow db init {{args}}
+airflow-db-migrate *args:
+    uv run airflow db migrate {{args}}
+
+# initialize airflow database (legacy, Airflow 2.x)
+# [group: 'airflow']
+# airflow-db-init *args:
+#     uv run airflow db init {{args}}
 
 # upgrade airflow database to latest schema
-[group: 'airflow']
-airflow-db-upgrade *args:
-    uv run airflow db upgrade {{args}}
+# [group: 'airflow']
+# airflow-db-upgrade *args:
+#     uv run airflow db upgrade {{args}}
 
 # open a shell to access the database
 [group: 'airflow']
@@ -84,9 +89,9 @@ airflow-db-reset *args:
 airflow-db-check:
     uv run airflow db check
 
-# =============================================================================
+# ======
 # DAG MANAGEMENT
-# =============================================================================
+# ======
 
 # list all DAGs
 [group: 'airflow']
@@ -141,9 +146,9 @@ airflow-dag-backfill dag_id start_date end_date *args:
 airflow-dags-reserialize:
     uv run airflow dags reserialize
 
-# =============================================================================
+# ======
 # TASK MANAGEMENT
-# =============================================================================
+# ======
 
 # list tasks in a DAG
 [group: 'airflow']
@@ -180,9 +185,9 @@ airflow-task-clear dag_id *args:
 airflow-task-logs dag_id task_id date:
     uv run airflow tasks logs {{dag_id}} {{task_id}} {{date}}
 
-# =============================================================================
+# ======
 # USERS
-# =============================================================================
+# ======
 
 # list users
 [group: 'airflow']
@@ -205,9 +210,9 @@ airflow-user-create username email password="admin":
 airflow-user-delete username:
     uv run airflow users delete {{username}}
 
-# =============================================================================
+# ======
 # CONNECTIONS
-# =============================================================================
+# ======
 
 # list all connections
 [group: 'airflow']
@@ -234,9 +239,9 @@ airflow-connection-delete conn_id:
 airflow-connection-test conn_id:
     uv run airflow connections test {{conn_id}}
 
-# =============================================================================
+# ======
 # VARIABLES
-# =============================================================================
+# ======
 
 # list all variables
 [group: 'airflow']
@@ -268,9 +273,9 @@ airflow-variables-import file:
 airflow-variables-export file:
     uv run airflow variables export {{file}}
 
-# =============================================================================
+# ======
 # POOLS
-# =============================================================================
+# ======
 
 # list all pools
 [group: 'airflow']
@@ -287,9 +292,9 @@ airflow-pool-set name slots description="":
 airflow-pool-delete name:
     uv run airflow pools delete {{name}}
 
-# =============================================================================
+# ======
 # PROVIDERS
-# =============================================================================
+# ======
 
 # list installed providers
 [group: 'airflow']
@@ -301,9 +306,9 @@ airflow-providers-list:
 airflow-provider-get provider:
     uv run airflow providers get {{provider}}
 
-# =============================================================================
+# ======
 # DEBUGGING
-# =============================================================================
+# ======
 
 # run airflow cheat-sheet
 [group: 'airflow']
