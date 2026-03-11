@@ -127,15 +127,12 @@ jobs:
               just ruff-check
 
         # - name: Pylint
-        #   run: uv run pylint src
+        #   run: |
+        #       just pylint
 
-        - name: Pylint
-          run: |
-              just pylint
-
-        - name: Mypy
-          run: |
-              just mypy
+        # - name: Mypy
+        #   run: |
+        #       just mypy
 
         - name: Ty
           run: |
