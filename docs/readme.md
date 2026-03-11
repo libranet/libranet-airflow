@@ -20,7 +20,7 @@ References:
 ```
 cd <your-projects-dir>
 git clone https://github.com/libranet/libranet-airflow.git
-make install
+just install
 ```
 
 ## Running airflow
@@ -28,13 +28,13 @@ make install
 Initialize database:
 
 ```
-make airflow-db-init
+just airflow-db-migrate
 ```
 
 Running webserver in standalone-mode
 
 ```
-bin/airflow standalone
+just airflow-standalone
 ```
 
 And then point your browser to [http://127.0.0.1:8080](http://127.0.0.1:8080/)
@@ -44,7 +44,7 @@ And then point your browser to [http://127.0.0.1:8080](http://127.0.0.1:8080/)
 Run the unittests with pytest:
 
 ```
-make pytest
+just pytest
 ```
 
 ## Open in VS Code
