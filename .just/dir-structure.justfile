@@ -69,5 +69,3 @@ clean: clean-symlinks clean-venv clean-pyhon-cache-files
     rm -fr var/log
 
 alias clear := clean
-
-
