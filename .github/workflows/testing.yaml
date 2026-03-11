@@ -31,6 +31,10 @@ env:
     # https://github.com/actions/runner/issues/241
     PY_COLORS: 1
 
+    # Pin just version for reproducible builds
+    # https://github.com/casey/just/releases
+    JUST_VERSION: "1.46.0"  # released on 2026-01-02
+
     # Pin uv version for reproducible builds
     # https://github.com/astral-sh/uv/releases
     UV_VERSION: "0.9.26"  # released on 2026-01-15
@@ -49,12 +53,13 @@ jobs:
     # see https://docs.astral.sh/uv/guides/integration/github/
     python-tests:
         name: python
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
         timeout-minutes: 10
-
         strategy:
             fail-fast: false
             matrix:
+                os:
+                    - ubuntu-latest
                 python-version:
                     - "3.14"
                     - "3.13"
@@ -63,15 +68,29 @@ jobs:
 
         # repo: https://github.com/actions/checkout
         # releases: https://github.com/actions/checkout/tags
-        - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1 released on 02-12-2025
+        - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2 released on 09-01-2026
           with:
               persist-credentials: false
               fetch-depth: 0
 
-        - name: Remove sitecustomize.py
-          run: |
-              sudo rm -f /usr/lib/python3.*/sitecustomize.py
-              sudo rm -f /etc/python3.*/sitecustomize.py
+        #- name: Show env variables
+        #  run: |
+        #      echo "$HOME/bin" >> $GITHUB_PATH
+        #      echo "${pwd}/.venv/bin" >> $GITHUB_PATH
+        #      printenv | sort
+
+        #- name: Install just
+        #  run: |
+        #      curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+        #      which just
+        #      just --version
+
+        # repo: https://github.com/extractions/setup-just
+        # releases: https://github.com/extractions/setup-just/releases
+        - name: Install pinned version of just
+          uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff  # v3 released on 2025-031-15
+          with:
+              just-version: ${{ env.JUST_VERSION }}
 
         # repo: https://github.com/astral-sh/setup-uv
         # releases: https://github.com/astral-sh/setup-uv/tags
@@ -79,28 +98,43 @@ jobs:
         - name: Install pinned version of uv
           uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b  # v7.1.6 released on 13-12-2025
           with:
+              cache-dependency-glob: "uv.lock"
+              enable-cache: true
+              prune-cache: true
               python-version: ${{ matrix.python-version }}
               version: ${{ env.UV_VERSION }}
-              enable-cache: true
-              cache-dependency-glob: "uv.lock"
-              prune-cache: true
+
+        # - name: Remove sitecustomize.py
+        #   run: |
+        #       sudo rm -f /usr/lib/python3.*/sitecustomize.py
+        #       sudo rm -f /etc/python3.*/sitecustomize.py
 
         - name: Set up Python ${{ matrix.python-version }}
           run: uv python install ${{ matrix.python-version }}
 
-        - name: Install the project
-          run: uv sync --all-groups
+        - name: Install project + dependencies
+          run: |
+              just ubuntu-remove-global-sitecustomize
+              just uv-set-python-version ${{ matrix.python-version }}
+              just install
 
-        - name: Run tests
-          run: uv run pytest tests --color=yes --cov=src --cov-fail-under=50 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing -v
+        # - name: Install the project
+        #   run: uv sync --all-groups
+
+        #- name: Run tests
+        #  run: uv run pytest tests --color=yes --cov=src --cov-fail-under=50 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing -v
+
+        - name: Run pytest with coverage
+          run: |
+              just pytest-cov
 
         # repo: https://github.com/codecov/codecov-action
         # releases: https://github.com/codecov/codecov-action/tags
         - name: "Upload coverage to Codecov"
           uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de  # v5.5.2 released on 09-12-2025
           with:
-              fail_ci_if_error: true  # false is default
+              fail_ci_if_error: false # optional (default = false)
               files: var/coverage/pytest-cobertura.xml
               flags: unittests # optional
-              token: ${{ secrets.CODECOV_TOKEN }}  # not required for public repos
-              verbose: true  # false is default
+              token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+              verbose: true # optional (default = false)
