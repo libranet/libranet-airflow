@@ -29,7 +29,7 @@ def _produce(ti: TaskInstance) -> dict:
     return data
 
 
-def _consume(ti: TaskInstance, **kwargs: tp.Any) -> None:
+def _consume(ti: TaskInstance, **kwargs: tp.Any) -> None:  # noqa: ARG001
     """Consume data by pulling from XCom manually."""
     # Pull with custom key
     data = ti.xcom_pull(task_ids="produce", key="user_data")

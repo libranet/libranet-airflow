@@ -4,7 +4,7 @@ DAG loader that imports from the libranet_airflow package.
 This file is placed in Airflow's DAGs folder for auto-discovery,
 """
 
-from libranet_airflow.dags import *
+from libranet_airflow.dags import *  # noqa: F403
 
 
 # from libranet_airflow.dags import (
