@@ -15,6 +15,7 @@ c.TerminalInteractiveShell.confirm_exit = False
 # and the environment-variables from .env have been loaded.
 ipython_cache_dir = pl.Path(os.getenv("IPYTHON_CACHE_DIR", "~/.cache/ipython"))
 ipython_cache_dir.mkdir(exist_ok=True)
+c.HistoryManager.hist_file = str(ipython_cache_dir / "history.sqlite")
 c.TerminalInteractiveShell.debugger_history_file = str(ipython_cache_dir / "pdb_history")
 del ipython_cache_dir
 

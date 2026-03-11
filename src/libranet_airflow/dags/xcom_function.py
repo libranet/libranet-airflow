@@ -44,4 +44,6 @@ def xcom_function() -> None:
     consume(result)  # type: ignore[arg-type]
 
 
-dag = xcom_function()
+# Instantiate the DAG - required for Airflow to discover it.
+# Use a distinct name to avoid shadowing the imported `dag` decorator.
+xcom_function_dag = xcom_function()

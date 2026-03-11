@@ -51,5 +51,6 @@ def simple_function() -> None:
     load(result)  # type: ignore[arg-type]
 
 
-# Instantiate the DAG
-dag = simple_function()
+# Instantiate the DAG - required for Airflow to discover it.
+# Use a distinct name to avoid shadowing the imported `dag` decorator.
+simple_function_dag = simple_function()

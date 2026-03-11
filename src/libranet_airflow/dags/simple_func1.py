@@ -36,5 +36,6 @@ def simple_func1() -> None:
     task_a >> task_b
 
 
-# Instantiate the DAG - required for Airflow to discover it
-dag = simple_func1()
+# Instantiate the DAG - required for Airflow to discover it.
+# Use a distinct name to avoid shadowing the imported `dag` decorator.
+simple_func1_dag = simple_func1()
