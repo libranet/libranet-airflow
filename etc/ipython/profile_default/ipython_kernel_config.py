@@ -1,6 +1,7 @@
-"""Configfile for ipython-kernel."""
+# ruff: noqa: E501 - line too long
+"""Configuration file for ipython-kernel."""
 
-c = get_config()  # noqa
+c = get_config()  # noqa: F821
 
 # ------------------------------------------------------------------------------
 # ConnectionFileMixin(LoggingConfigurable) configuration
