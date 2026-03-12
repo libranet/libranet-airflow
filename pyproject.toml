@@ -92,7 +92,7 @@ pytest_add_cli_args_test_selection= [ "tests/" ]
 name = "libranet-airflow"
 version = "0.1dev0"
 license = { file = "license.md" }
-description = ""
+description = "Airflow setup for development, testing and deployment."
 readme = "docs/readme.md"
 requires-python = ">=3.13"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
