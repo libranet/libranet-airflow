@@ -135,7 +135,7 @@ dev = [
 deploy = [
     "gunicorn>=20.1",
     "hypercorn>=0.14",
-    "uvicorn>=0.20"
+    "uvicorn>=0.46.0"
     # "uvicorn = { extras = ["standard"], version = ">=0.20" }
 ]
 docs = [
