@@ -124,7 +124,7 @@ dependencies = [
     "apache-airflow>=3.2.1",
     "apache-airflow-client>=3.2.1",
     "autoadd-bindir>=1.0.6",
-    "pandas>=3.0.0",
+    "pandas>=3.0.3",
     "graphviz>=0.21",
 ]
 [dependency-groups]
