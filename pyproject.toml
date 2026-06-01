@@ -157,7 +157,7 @@ ipython = [
     "httpx>=0.20",  # demo-function
     "ipdb>=0.13",
     "ipython>=9.13.0",
-    "requests>=2.3", # demo-function
+    "requests>=2.34.2", # demo-function
     "rich>=13.9",
 ]
 jupyter = [
