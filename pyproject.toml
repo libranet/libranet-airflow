@@ -115,7 +115,7 @@ classifiers = [
 ]
 dependencies = [
     "autoread-dotenv>=1.0.3",
-    "cyclopts>=4.16.1",
+    "cyclopts>=4.20.0",
     "httpclient-logging>=1.0",
     "libranet-logging>=1.5",
     "python-dateutil>=2.9",
