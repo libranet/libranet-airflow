@@ -156,7 +156,7 @@ docs = [
 ipython = [
     "httpx>=0.20",  # demo-function
     "ipdb>=0.13",
-    "ipython>=9.14.0",
+    "ipython>=9.15.0",
     "requests>=2.34.2", # demo-function
     "rich>=13.9",
 ]
