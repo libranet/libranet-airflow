@@ -41,7 +41,7 @@ def xcom_function() -> None:
 
     # XCom passing happens automatically
     result = produce()
-    consume(result)  # type: ignore[arg-type]
+    consume(result)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
 
 
 # Instantiate the DAG - required for Airflow to discover it.

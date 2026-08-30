@@ -16,4 +16,4 @@ def test_license() -> None:
     from libranet_airflow.about import license_
 
     assert isinstance(license_, str)
-    assert "Copyright" in license_
+    assert "MIT" in license_

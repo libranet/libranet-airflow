@@ -7,7 +7,7 @@ import typing as tp
 from airflow.models import BaseOperator
 
 if tp.TYPE_CHECKING:
-    from airflow.utils.context import Context
+    from airflow.sdk import Context
 
 
 class LibranetOperator(BaseOperator):
