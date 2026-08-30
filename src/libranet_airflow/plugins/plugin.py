@@ -27,10 +27,13 @@ class LibranetAirflowPlugin(AirflowPlugin):
     name = "libranet_plugin"
 
     # Register custom macros (available in Jinja as {{ macros.macro_name() }})
-    macros: tp.ClassVar[list[tp.Callable[..., tp.Any]]] = [
+    # `AirflowPlugin` declares these as plain annotated class attributes, so ty
+    # flags the `ClassVar` override; the `ClassVar` annotation is what ruff (RUF012)
+    # wants for a mutable class attribute, so keep it and silence ty.
+    macros: tp.ClassVar[list[tp.Callable[..., tp.Any]]] = [  # ty: ignore[invalid-attribute-override]
         libranet_greeting,
         libranet_format_date,
     ]
 
     # Register listeners for task lifecycle events
-    listeners: tp.ClassVar[list[tp.Any]] = [libranet_listener]
+    listeners: tp.ClassVar[list[tp.Any]] = [libranet_listener]  # ty: ignore[invalid-attribute-override]

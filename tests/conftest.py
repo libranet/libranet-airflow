@@ -58,4 +58,6 @@ def dag_bag() -> DagBag:
     from airflow.configuration import conf
 
     dags_folder = conf.get("core", "dags_folder")
-    return DagBag(dag_folder=dags_folder, include_examples=False)
+    # Example DAGs are disabled via AIRFLOW__CORE__LOAD_EXAMPLES; DagBag no longer
+    # accepts an `include_examples` argument as of Airflow 3.3.
+    return DagBag(dag_folder=dags_folder)

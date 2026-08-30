@@ -183,8 +183,8 @@ with DAG(
     # ETL pipeline using TaskFlow - note the clean data passing syntax
     # Note: @task decorated functions return XComArg at definition time
     raw = extract()
-    transformed = transform(raw)  # type: ignore[arg-type]
-    load_result = load(transformed)  # type: ignore[arg-type]
+    transformed = transform(raw)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
+    load_result = load(transformed)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
 
     # =========================================================================
     # 5. BRANCHING - Conditional execution
@@ -211,7 +211,7 @@ with DAG(
     # 6. TASK GROUPS - Organize related tasks
     # =========================================================================
 
-    @task_group(group_id="validation_group")
+    @task_group(group_id="validation_group")  # ty: ignore[invalid-argument-type]
     def validation_tasks() -> list:
         """Run validation tasks in parallel."""
 
@@ -260,7 +260,7 @@ with DAG(
     # Dynamic task expansion - creates N tasks based on get_partitions output
     partitions = get_partitions()
     partition_results = process_partition.expand(partition=partitions)
-    summary = summarize(partition_results)  # type: ignore[arg-type]
+    summary = summarize(partition_results)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
 
     # =========================================================================
     # 8. TASK DEPENDENCIES

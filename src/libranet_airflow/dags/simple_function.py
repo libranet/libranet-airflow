@@ -47,8 +47,8 @@ def simple_function() -> None:
 
     # Define task dependencies via function calls
     data = extract()
-    result = transform(data)  # type: ignore[arg-type]
-    load(result)  # type: ignore[arg-type]
+    result = transform(data)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
+    load(result)  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
 
 
 # Instantiate the DAG - required for Airflow to discover it.
